@@ -1,10 +1,16 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
+const cors = require("cors");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: "*", // 或者指定你的前端應用地址
+    methods: ["GET", "POST"]
+  }
+});
 
 app.get("/", (req, res) => {
   res.send("Chat server is running");
